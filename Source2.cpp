@@ -1,30 +1,33 @@
-﻿#include<iostream>
-#include<set>
+#include<iostream>
+#include<algorithm>
 #include<vector>
+struct dragon {
+	int xi, yi;
+};
 using namespace std;
+bool cmp(dragon a, dragon b) {
+	return (a.xi < b.yi);
+}
 int main()
-{
-	int n; cin >> n;
-	//int k; cin >> k;
-	//int* a = new int[n];
-//	vector<int> a;// là một cái mảng động tức lầ số lượng phần tưr sẽ bị thay đổi
-	multiset<int> s;
+{ 
+	long long s;
+	int  n;
+	cin >> s >> n;
+	vector<dragon> v;
 	for (int i = 0; i < n; i++) {
-		int x;
-		cin >> x;
-		s.insert(x);
+		int xi; cin >> xi;
+		int yi; cin >> yi;
+		dragon x{ xi, yi};
+		v.push_back(x);
 	}
-	int b;
-	cout << "Nhap so can xoa: ";
-	cin >> b;
-	if (s.find(b) != s.end() ) {
-		s.erase(b);
-	}
-	else {
-		cout << "So ban muon xoa khong co trong mang: ";
-	}
-	for (int x : s) {
-		cout << x << " ";
-	}
+	sort(v.begin(), v.end(), cmp);
+	for (auto &x: v){
+		if (s <= x.xi) {
+			cout << "NO";
+			return 0;
+		}
+		s += x.yi;
+    }
+	cout << "YES";
 	return 0;
 }

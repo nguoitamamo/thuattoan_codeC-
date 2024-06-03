@@ -1,27 +1,23 @@
 #include<iostream>
-#include<map>
-#include<set>
+#include<vector>
+#include<algorithm>
 using namespace std;
 int main()
-{
-	int n;
-	cin >> n;
-	int i = 0;
-	do {
-		int a;
-		cin >> a;
-		set<int> s;
-		int* b = new int[a];
-		for (int i = 0; i < a; i++) {
-			cin >> b[i];
-			s.insert(b[i]);
+{ 
+	long long s; cin >> s;
+	long long n; cin >> n;
+	vector<pair<long long , int>> v(n);
+	for (int i = 0; i < n; i++) {
+		cin >> v[i].first >> v[i].second;
+	}
+	sort(v.begin(), v.end());
+	for (auto it =v.begin(); it!=v.end(); it++) {
+		if (s <= (*it).first) {
+			cout << "NO";
+			return 0;
 		}
-		int dem = 1;
-		for (int i = 1; i <= a - 1; i++) {
-			dem++;
-		}
-		cout << "so luong phan tu khac nhau : " << dem << "\n";
-		i++;
-	} while (i < n);
+		s += (*it).second;
+	}
+	cout << "YES";
 	return 0;
 }
