@@ -2,8 +2,9 @@
 using namespace std;
 int main()
 {
+	
 
+	cout << " Huynh Ngoc Truong";
 
-	system("pause");
 	return 0;
 }

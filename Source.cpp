@@ -1,60 +1,51 @@
-﻿#include<iostream>
-#include<algorithm>
-#include<vector>
+#include<iostream>
+#include<string>
 using namespace std;
-bool search(int a[], int n, int x) {
-	for (int i = 0; i < n; i++) {
-		if (a[i] == x) {
-			return true;
+void search(string &s1,string s2)
+{   
+	int dem1[256] = { 0 }, dem2[256] = { 0 };
+	for (char x : s2)
+	{
+		dem2[x]++;
+	}
+	int cnt = 0, left = 0; int index = -1; int ans = INT_MAX;
+	for (int i = 0; i < s1.length(); i++)
+	{
+		dem1[s1[i]]++;
+		if (dem1[s1[i]] <= dem2[s2[i]])
+		{
+			cnt++;
+		}
+		if (cnt == s2.length())
+		{
+			while (dem1[s1[left]] > dem2[s1[left]] || dem2[s1[left]] == 0)
+			{
+				if (dem1[s1[left]] > dem2[s1[left]])
+				{
+					dem1[s1[left]]--;
+				}
+				left++;
+			}
+		}
+		if (ans > i-left +1)
+		{
+			ans = i - left + 1;
+			index =left;
 		}
 	}
-	return false;
-}
-bool search_np(int a[], int l, int r, int x,int n) {
-	int l = 0, r = n - 1;
-	while (l <= r) {
-		int m = (l + r) / 2;
-		if (a[m] == x) {
-			return true;
-		}
-		else if (a[m] < x) {
-			l = m + 1;
-		}
-		else {
-			r = m - 1;
-		}
+	if (index == -1)
+	{
+		cout << "-1";
 	}
-	return false;
-}
-// tìm vị trí xuất hiện đầu tiên của phần tử trong mảng
-int first_num(int a[], int n, int x) {
-	int save = 0;
-	int l = 0, r = n - 1;
-	while (l <= r) {
-		 int  m = (l + r) / 2;
-		 if (a[m] == x) {
-			 save = m;
-			 return save;
-		 }
-		 else if (a[m] > x) {
-			 r = m - 1;
-		 }
-		 else {
-			 l = m + 1;
-		 }
+	else 
+	{
+		cout << s1.substr(index, ans) << "\n";
 	}
-	return save;
 }
 int main()
-{
-	int n; cin >> n;
-	int* a = new int[n];
-	
-	for (int i = 0; i < n; i++) {
-		cin >> a[i];
-	}
-	sort(a, a + n);
-	int x; cin >> x;
-	cout << first_num(a, n, x);
+{  
+	string s1, s2;
+	cin >> s1 >> s2;
+	search(s1,s2);
 	return 0;
 }

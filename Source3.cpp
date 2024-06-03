@@ -1,18 +1,27 @@
 #include<iostream>
-#include<vector>
-#include<algorithm>
+#include<map>
+#include<set>
 using namespace std;
 int main()
 {
-	int a[6] = { 8,7,1,9,2,3 };
-	int dem1 = 0;
-	for (int i = 0; i < 6; i++) {
-		for (int j = i + 1; j < 6; j++) {
-			if (a[i] > a[j]) {
-				dem1++;
-			}
+	int n;
+	cin >> n;
+	int i = 0;
+	do {
+		int a;
+		cin >> a;
+		set<int> s;
+		int* b = new int[a];
+		for (int i = 0; i < a; i++) {
+			cin >> b[i];
+			s.insert(b[i]);
 		}
-	}
-	cout << dem1;
+		int dem = 1;
+		for (int i = 1; i <= a - 1; i++) {
+			dem++;
+		}
+		cout << "so luong phan tu khac nhau : " << dem << "\n";
+		i++;
+	} while (i < n);
 	return 0;
 }
